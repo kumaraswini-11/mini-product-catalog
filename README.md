@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mini Product Catalog
+
+A responsive product catalog application built with Next.js 15 and React, featuring product listings, details, filtering, sorting, and analytics.
+
+## Features
+
+- **Product Listing**: Responsive grid layout with product cards
+- **Product Details**: Detailed view of individual products
+- **Filtering**: Filter products by category
+- **Sorting**: Sort products by price (ascending/descending) or title
+- **Search**: Search products by title or description
+- **Pagination**: Client-side pagination with 10 items per page
+- **Cart Functionality**: Add/remove products from cart with quantity control
+- **Analytics**: Visual charts showing product distribution by category, price range, and ratings
+- **Responsive Design**: Mobile, tablet, and desktop friendly
+- **Loading States**: Skeleton loaders for better UX during data fetching
+- **Error Handling**: Graceful error handling with user-friendly messages
+
+<!--
+
+## Data Fetching Strategy
+
+This application uses a combination of data fetching strategies for optimal performance:
+
+1. **Server-Side Rendering (SSR)** for the product listing page:
+
+   - Initial data is fetched on the server using React Server Components
+   - This provides good SEO and initial page load performance
+   - Filtering, sorting, and pagination are handled client-side for a responsive UX
+
+2. **Static Site Generation (SSG) with Incremental Static Regeneration (ISR)** for product detail pages:
+
+   - Common product pages are pre-rendered at build time using `generateStaticParams`
+   - Less frequently accessed products use ISR with a 1-hour revalidation period
+   - This approach provides the best performance while keeping data fresh
+
+3. **Client-Side State Management**:
+   - Zustand is used for managing client-side state (filters, sorting, search, cart)
+   - This keeps the UI responsive and avoids unnecessary server requests -->
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18.x or higher
+- npm or yarn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/yourusername/mini-product-catalog.git
+   cd mini-product-catalog
+   ```
 
-## Learn More
+2. Install dependencies & un the development server:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   bun install
+   bun run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the LICENSE file for details.

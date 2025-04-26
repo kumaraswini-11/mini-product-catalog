@@ -12,6 +12,8 @@ interface ProductState {
   sortOption: SortOption | null;
   isLoading: boolean;
   error: string | null;
+  currentPage: number;
+  itemsPerPage: number;
 
   setProducts: (products: Product[]) => void;
   setCategory: (category: string | null) => void;
@@ -19,6 +21,11 @@ interface ProductState {
   setSortOption: (option: SortOption | null) => void;
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;
+  setCurrentPage: (page: number) => void;
+  setItemsPerPage: (items: number) => void;
+
+  getTotalPages: () => number;
+  getCurrentPageItems: () => Product[];
 }
 
 export const useProductStore = create<ProductState>((set, get) => ({
@@ -29,6 +36,8 @@ export const useProductStore = create<ProductState>((set, get) => ({
   sortOption: null,
   isLoading: false,
   error: null,
+  currentPage: 1,
+  itemsPerPage: 10,
 
   setProducts: products => {
     set({products});
@@ -39,7 +48,7 @@ export const useProductStore = create<ProductState>((set, get) => ({
       state.searchQuery,
       state.sortOption
     );
-    set({filteredProducts: filtered});
+    set({filteredProducts: filtered, currentPage: 1}); // Reset to first page when products change
   },
 
   setCategory: category => {
@@ -51,7 +60,7 @@ export const useProductStore = create<ProductState>((set, get) => ({
       state.searchQuery,
       state.sortOption
     );
-    set({filteredProducts: filtered});
+    set({filteredProducts: filtered, currentPage: 1}); // Reset to first page when filter changes
   },
 
   setSearchQuery: query => {
@@ -63,7 +72,7 @@ export const useProductStore = create<ProductState>((set, get) => ({
       query,
       state.sortOption
     );
-    set({filteredProducts: filtered});
+    set({filteredProducts: filtered, currentPage: 1}); // Reset to first page when search changes
   },
 
   setSortOption: option => {
@@ -80,6 +89,20 @@ export const useProductStore = create<ProductState>((set, get) => ({
 
   setLoading: isLoading => set({isLoading}),
   setError: error => set({error}),
+  setCurrentPage: page => set({currentPage: page}),
+  setItemsPerPage: items => set({itemsPerPage: items}),
+
+  getTotalPages: () => {
+    const {filteredProducts, itemsPerPage} = get();
+    return Math.ceil(filteredProducts.length / itemsPerPage);
+  },
+
+  getCurrentPageItems: () => {
+    const {filteredProducts, currentPage, itemsPerPage} = get();
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredProducts.slice(startIndex, endIndex);
+  },
 }));
 
 function filterAndSortProducts(
@@ -88,8 +111,7 @@ function filterAndSortProducts(
   query: string,
   sortOption: SortOption | null
 ): Product[] {
-  // Filter by category
-  let filtered = category ? products.filter(product => product.category === category) : products;
+  let filtered = category ? products.filter(product => product.category === category) : products; // Filter by category
 
   // Filter by search query
   if (query) {

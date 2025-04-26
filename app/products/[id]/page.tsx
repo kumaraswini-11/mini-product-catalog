@@ -20,7 +20,7 @@ interface ProductPageProps {
 
 export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
   try {
-    const product = await getProduct(params.id);
+    const product = await getProduct(await params.id);
     return {
       title: `${product.title} | ShopCatalog`,
       description: product.description,
@@ -113,7 +113,7 @@ function ProductDetails({product}: {product: Product}) {
 }
 
 export default async function ProductPage({params}: ProductPageProps) {
-  const product = await getProduct(params.id);
+  const product = await getProduct(await params.id);
 
   // When we invoke notFound() within a route segment (e.g., app/products/[id]/page.tsx), Next.js will look for a not-found.tsx file within that segment. If it doesn't find one, it will fall back to the global app/not-found.tsx file.
   if (!product) {

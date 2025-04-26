@@ -4,20 +4,25 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 import React, {JSX} from "react";
 
-import {Info, Package} from "lucide-react";
+import {ChartLineIcon, Info, Package} from "lucide-react";
 
 import {cn} from "@/lib/utils";
 
 export const NAV_ITEMS: NavItem[] = [
+  {
+    label: "About",
+    href: "/",
+    icon: Info,
+  },
   {
     label: "Products",
     href: "/products",
     icon: Package,
   },
   {
-    label: "About",
-    href: "/",
-    icon: Info,
+    label: "Charts",
+    href: "/charts",
+    icon: ChartLineIcon,
   },
 ];
 
