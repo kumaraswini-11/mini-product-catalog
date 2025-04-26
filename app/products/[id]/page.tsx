@@ -5,6 +5,7 @@ import {notFound} from "next/navigation";
 
 import {ArrowLeft, Star} from "lucide-react";
 
+import {AddToCartButton} from "@/components/add-to-cart-button";
 import {AspectRatio} from "@/components/ui/aspect-ratio";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
@@ -94,12 +95,11 @@ function ProductDetails({product}: {product: Product}) {
       <p className="text-base text-muted-foreground">{product.description}</p>
 
       <div className="flex flex-col sm:flex-row gap-4 mt-auto">
-        <Button
-          size="lg"
-          className="sm:flex-1"
-          aria-label="Add to cart">
-          Add to Cart
-        </Button>
+        <AddToCartButton
+          product={product}
+          quantity={1}
+        />
+
         <Button
           size="lg"
           variant="outline"

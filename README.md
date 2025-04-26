@@ -16,34 +16,7 @@ A responsive product catalog application built with Next.js 15 and React, featur
 - **Loading States**: Skeleton loaders for better UX during data fetching
 - **Error Handling**: Graceful error handling with user-friendly messages
 
-<!--
-
-## Data Fetching Strategy
-
-This application uses a combination of data fetching strategies for optimal performance:
-
-1. **Server-Side Rendering (SSR)** for the product listing page:
-
-   - Initial data is fetched on the server using React Server Components
-   - This provides good SEO and initial page load performance
-   - Filtering, sorting, and pagination are handled client-side for a responsive UX
-
-2. **Static Site Generation (SSG) with Incremental Static Regeneration (ISR)** for product detail pages:
-
-   - Common product pages are pre-rendered at build time using `generateStaticParams`
-   - Less frequently accessed products use ISR with a 1-hour revalidation period
-   - This approach provides the best performance while keeping data fresh
-
-3. **Client-Side State Management**:
-   - Zustand is used for managing client-side state (filters, sorting, search, cart)
-   - This keeps the UI responsive and avoids unnecessary server requests -->
-
 ## Getting Started
-
-### Prerequisites
-
-- Node.js 18.x or higher
-- npm or yarn
 
 ### Installation
 
