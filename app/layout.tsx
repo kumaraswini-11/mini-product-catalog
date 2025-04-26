@@ -1,6 +1,8 @@
 import type {Metadata} from "next";
 import {Geist, Geist_Mono, Inter} from "next/font/google";
 
+import Footer from "@/components/footer";
+import {Header} from "@/components/header/header";
 import {ThemeProvider} from "@/components/theme-provider";
 
 import "./globals.css";
@@ -37,8 +39,11 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          {" "}
-          {children}
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1 px-4">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -5,9 +5,9 @@ export default function Footer() {
     <footer
       className={cn(
         "border-t bg-background",
-        "mt-4 border-t pt-4 text-center text-sm text-muted-foreground"
+        "mt-4 border-t text-center text-sm text-muted-foreground"
       )}>
-      <p>© {new Date().getFullYear()} ShopCatalog. All rights reserved.</p>
+      <p className="my-3">© {new Date().getFullYear()} ShopCatalog. All rights reserved.</p>
     </footer>
   );
 }
