@@ -12,3 +12,12 @@ export interface Product {
 }
 
 export type SortOption = "price-asc" | "price-desc" | "title-asc" | "title-desc";
+
+export interface NavItem {
+  label: string;
+  href: string;
+  icon: React.ComponentType<{
+    className?: string;
+    "aria-hidden"?: boolean;
+  }>;
+}

@@ -12,7 +12,7 @@ export const Logo: React.FC = () => {
         className="size-6"
         aria-hidden="true"
       />
-      <span className="font-bold text-xl">ShopCatalog</span>
+      <span className="hidden md:block font-bold text-xl">ShopCatalog</span>
     </Link>
   );
 };

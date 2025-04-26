@@ -4,6 +4,8 @@ import React from "react";
 
 import {ShoppingCart} from "lucide-react";
 
+import {NAV_ITEMS} from "@/lib/constants";
+import {NavItem} from "@/lib/types";
 import {cn} from "@/lib/utils";
 import {useCartStore} from "@/stores/cart-store";
 
@@ -11,7 +13,7 @@ import {Logo} from "../logo";
 import {ThemeToggle} from "../theme-toggle";
 import {Badge} from "../ui/badge";
 import {Button} from "../ui/button";
-import {NAV_ITEMS, NavItem, NavLink} from "./nav-items";
+import {NavLink} from "./nav-items";
 
 export interface HeaderProps {
   className?: string;
@@ -30,40 +32,37 @@ export const Header: React.FC<HeaderProps> = ({className}) => {
       <div className="px-4 flex h-14 items-center justify-between">
         <Logo />
 
-        {/* Navigation, Theme toggle, and Cart */}
-        <div className="flex items-center gap-4">
-          {/* Desktop Navigation */}
-          <div className="flex items-center gap-4">
-            <nav
-              className="flex items-center gap-6"
-              aria-label="Main navigation">
-              {NAV_ITEMS.map((item: NavItem) => (
-                <NavLink
-                  key={item.href}
-                  item={item}
-                  mobile={false}
-                  onClick={undefined}
-                />
-              ))}
-            </nav>
+        {/* Desktop Navigation + Cart + ThemeToggle */}
+        <div className="flex items-center justify-between gap-2">
+          <nav
+            className="flex items-center gap-4"
+            aria-label="Main navigation">
+            {NAV_ITEMS.map((item: NavItem) => (
+              <NavLink
+                key={item.href}
+                item={item}
+              />
+            ))}
+          </nav>
 
-            {/* Cart */}
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative">
-                <ShoppingCart className="size-5" />
-                {cartItemCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
-                    {cartItemCount}
-                  </Badge>
-                )}
-              </Button>
-            </div>
+          {/* Cart */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            aria-label="View cart">
+            <ShoppingCart
+              className="size-5"
+              aria-hidden
+            />
+            {cartItemCount > 0 && (
+              <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                {cartItemCount}
+              </Badge>
+            )}
+          </Button>
 
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
         </div>
       </div>
     </header>

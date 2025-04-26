@@ -2,69 +2,48 @@
 
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import React, {JSX} from "react";
 
-import {ChartLineIcon, Info, Package} from "lucide-react";
-
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import {NavItem} from "@/lib/types";
 import {cn} from "@/lib/utils";
-
-export const NAV_ITEMS: NavItem[] = [
-  {
-    label: "About",
-    href: "/",
-    icon: Info,
-  },
-  {
-    label: "Products",
-    href: "/products",
-    icon: Package,
-  },
-  {
-    label: "Charts",
-    href: "/charts",
-    icon: ChartLineIcon,
-  },
-];
-
-export interface NavItem {
-  label: string;
-  href: string;
-  icon: React.ComponentType<{
-    className?: string;
-    "aria-hidden"?: boolean;
-  }>;
-}
 
 export interface NavLinkProps {
   item: NavItem;
-  mobile?: boolean | undefined;
-  onClick?: (() => void) | undefined;
+  onClick?: () => void;
 }
 
-export const NavLink: React.FC<NavLinkProps> = (props: NavLinkProps): JSX.Element => {
-  const pathname: string = usePathname();
-  const Icon: React.ComponentType<{
-    className?: string;
-    "aria-hidden"?: boolean;
-  }> = props.item.icon;
-
-  const isActive: boolean = pathname === props.item.href;
+export const NavLink: React.FC<NavLinkProps> = ({item, onClick}) => {
+  const pathname = usePathname();
+  const Icon = item.icon;
+  const isActive = pathname === item.href;
 
   return (
-    <Link
-      href={props.item.href}
-      onClick={props.onClick}
-      aria-current={isActive ? "page" : undefined}
-      className={cn(
-        "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
-        isActive ? "text-primary" : "text-muted-foreground",
-        props.mobile ? "text-base" : undefined
-      )}>
-      <Icon
-        className="size-4"
-        aria-hidden={true}
-      />
-      <span>{props.item.label}</span>
-    </Link>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link
+            href={item.href}
+            onClick={onClick}
+            aria-current={isActive ? "page" : undefined}
+            className={cn(
+              "flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary focus:outline-none rounded-md",
+              isActive ? "text-primary" : "text-muted-foreground"
+            )}>
+            <Icon
+              className="size-5 md:size-4"
+              aria-hidden={true}
+            />
+            {/* Label hidden on small screens, shown on md+ */}
+            <span className="hidden sm:inline">{item.label}</span>
+          </Link>
+        </TooltipTrigger>
+        {/* Tooltip only on mobile (sm and below) */}
+        <TooltipContent
+          side="bottom"
+          className="sm:hidden">
+          {item.label}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
